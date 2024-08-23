@@ -1,25 +1,10 @@
 const UserManager = require('./UserManager')
-const fs = require('fs/promises');
-const path = 'data.json';
 
-const manager = new UserManager([]);
+const manager = new UserManager();
 
-async function leer(){
-    const data = await fs.readFile(path);
-    const json = JSON.parse(data);
-    console.log( json);
+// Para usar los métodos de la clase lo tratamos como promesas, tambien los podemos hacer con async await
 
-}
+manager.getUsers().then( users => console.table(users) );
 
 
-leer();
-
-/* fs.readFile(path, 'utf-8', (err, data) => {
-    if(err){
-        console.error('Ocurrio un error', err);
-        return;
-    }
-    const json = JSON.parse(data);
-    console.log(json);
-
-}) */
+manager.addUser( {}).then( data => console.log(data))

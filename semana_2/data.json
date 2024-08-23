@@ -3,12 +3,18 @@
         "id": 1,
         "name": "Juan",
         "email": "juan@mail.com",
-        "foto": "usuario1.png"
+        "foto": "usuario1.jpg"
     },
     {
         "id": 2,
         "name": "Micaela",
-        "email": "telefono samsung",
-        "foto": "us.png"
+        "email": "micaela@mail.com",
+        "foto": "micaela.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Sebastian",
+        "email": "seba@mail.com",
+        "foto": "sebastian.jpg"
     }
 ]

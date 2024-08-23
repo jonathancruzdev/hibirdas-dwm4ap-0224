@@ -1,3 +1,4 @@
+const { error } = require('console');
 const fs = require('fs/promises');
 // Lectura de archivos
 const path1 = 'nota1.txt';
@@ -6,37 +7,21 @@ const path3 = 'frase.txt';
 let frase = '';
 
 
-fs.readFile(path1, 'utf-8').then( data => {
-    frase = data.toString();
-}).catch( error => {
-    console.error('Ocurrio un error', error);
-})
+/*
 
+fs.writeFile( path3, frase).then( data => console.log('Ok!'))
+.catch( error => console.log(error))
+*/
+const escribir = async () => {
+    const data1 = await fs.readFile(path1, 'utf-8');
+    const data2 = await fs.readFile(path2, 'utf-8');
 
-fs.readFile(path1, 'utf-8', (err, data) => {
-    if(err){
-        console.error('Ocurrio un error', err);
-        return;
-    }
-    frase = data.toString();
-    
-})
-
-fs.readFile(path2, 'utf-8', (err, data2) => {
-    if(err){
-        console.error('Ocurrio un error', err);
-        return;
-    }
-    frase += data2.toString();
-    frase = frase.toUpperCase();
-
+    frase = (data1 + data2).toUpperCase();
+    console.log(frase);
    
-})
+};
 
-fs.writeFile( path3, frase, (err) => {
-    if( err){
-        console.error('Ocurrio un error', err);
-    } else {
-        console.log('todo Ok!');
-    }
-})
+escribir();
+
+
+
