@@ -35,6 +35,9 @@ class Users {
         const array = JSON.parse(data);
         return array.find( user => user.id == id);
     }
+    async deleteUserById( id ){
+
+    }
 }
 
 
