@@ -1,5 +1,5 @@
 const fs = require('fs/promises');
-
+const crypto = require('crypto');
 class Users {
     path = '';
     
@@ -10,11 +10,11 @@ class Users {
     // {id: 'dsdsds32d', name: 'Juan',  email: 'juan@mail.com' }
     async addUser( user ){
         const { name, email } = user;
-        //const id = crypto.randomUUID();
+        const id = crypto.randomUUID();
         // Leo el JSON local
         const data = await fs.readFile(this.path, 'utf-8');
         const array = JSON.parse(data);
-        const id = array.length + 1;
+        //const id = array.length + 1;
         array.push({
             id: id,
             name: name,
@@ -29,6 +29,11 @@ class Users {
         const data = await fs.readFile(this.path, 'utf-8');
         const array = JSON.parse(data);
         return array;
+    }
+    async getUserById( id ){
+        const data = await fs.readFile(this.path, 'utf-8');
+        const array = JSON.parse(data);
+        return array.find( user => user.id == id);
     }
 }
 

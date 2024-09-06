@@ -17,6 +17,18 @@ app.get('/users', async (req, res) => {
     console.table(data);
     res.status(200).send(data);
 })
+// Retorna el usuario por id
+app.get('/users/:id', async ( req, res) => {
+    const id = req.params.id;
+    const users = new Users();
+    const data = await users.getUserById(id);
+    if( data ){
+        res.status(200).json( data)
+    } else {
+        res.status(404).json({ mensaje: 'Usuario no econtrado'})
+    }
+})
+
 // Guarda un usuario
 app.post('/users', async( req, res) => {
     console.log( req.body );
