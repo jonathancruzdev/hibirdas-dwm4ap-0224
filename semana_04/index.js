@@ -1,4 +1,5 @@
 const express = require('express');
+const { Users } = require('./Users');
 const app = express();
 const port = 3000;
 app.use( express.json());
@@ -8,6 +9,30 @@ app.get('/', (req, res) => {
     res.send('Home');
     console.log('Cliente en el HOME')
 });
+
+// Retorna la lisa de usuarios
+app.get('/users', async (req, res) => {
+    const users = new Users();
+    const data = await users.getUsers();
+    console.table(data);
+    res.status(200).send(data);
+})
+// Guarda un usuario
+app.post('/users', async( req, res) => {
+    console.log( req.body );
+    const { name, email } = req.body;
+    if( !email || !name ){
+        res.status(400).json({ mensaje: 'Faltan parametros'})
+    }
+    const users = new Users();
+    await users.addUser({
+        name,
+        email
+    })
+    res.status(202).json({ mensaje: 'Usuario Guardado'})
+})
+
+
 // Ruta products
 app.get('/products', (req, res) =>{
     res.send('Products');
