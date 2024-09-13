@@ -1,5 +1,9 @@
 const express = require('express');
-const port = 3000;
+// Importamos el módulo dotenv
+require('dotenv').config();
+// Accedemos a la varible de entorno PORT
+const port = process.env.PORT;
+
 // importamos las rutas
 const routerAPI = require('./routes');
 const app = express();

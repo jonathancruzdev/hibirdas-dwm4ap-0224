@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
+// importo el controlador
+const { getUsers } = require('../controllers/userController');
 
 // Obtener todos los usuarios
-router.get('/', (req, res) => {
-    console.log('GET Users')
-});
+router.get('/', getUsers);
 // Obtener por ID
 router.get('/:id', (req, res) => {
     console.log('GET Users by ID')
