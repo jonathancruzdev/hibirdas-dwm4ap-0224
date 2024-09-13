@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
 // importo el controlador
-const { getUsers } = require('../controllers/userController');
+const { addUser, getUsers, getUserById } = require('../controllers/userController');
 
 // Obtener todos los usuarios
 router.get('/', getUsers);
 // Obtener por ID
-router.get('/:id', (req, res) => {
-    console.log('GET Users by ID')
-});
+router.get('/:id', getUserById );
 // Crear usuario
-router.post('/', (req, res) => {
-    console.log('POST User')
-});
+router.post('/', addUser );
+
 // Actualizar usuario
 router.put('/:id', (req, res) => {
     console.log('PUT User')
