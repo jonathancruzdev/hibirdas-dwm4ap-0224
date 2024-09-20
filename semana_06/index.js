@@ -48,17 +48,17 @@ app.get('/users/:id', (req, res) => {
 
 app.post('/users', async (req, res) => {
     console.log('POST users');
-    console.log(Users);
     const body = req.body;
     const user = {
         name: body.name,
         email: body.email,
         password: body.password
     }
-
+    console.log(user)
     // Creo una instancia de user
     const myUser = new User(user);
-      await myUser.save();
+    console.log/(myUser)
+    await myUser.save();
 
 
     res.status(200).json({ msg: 'ok'})
