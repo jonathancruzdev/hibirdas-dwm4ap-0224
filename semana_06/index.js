@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const routerAPI = require('./routes');
 require('dotenv').config();
-const User = require('./models/usersModels');
 
 // accedemos a la variable de Entorno
 const port = process.env.PORT;
@@ -15,7 +15,6 @@ db.once('open', ()=>{
     console.log('Conexión correcta');
 })
 
-
 const app = express();
 // Ruta Raíz
 app.use( express.json());
@@ -23,55 +22,14 @@ app.use( express.json());
 app.use(  (req, res, next) => {
     console.log('Soy el middleware');
     next();
-
-/*     const body = req.body;
-    const {mail, password} = body;
-    if( mail == 'juan@mail.com' && password == '1234'){
-        console.log(body);
-        next();
-    } else {
-        res.status(403).json({msg: 'error'})
-    }
- */
 }) 
 
-app.get('/users', (req, res) => {
-    console.log('GET users');
-    res.status(200).json({ msg: 'ok'})
+app.get('/', (req, res) => {
+    res.status(200).send('<h1> API REST </h1>');
 })
 
-app.get('/users/:id', (req, res) => {
-    console.log('GET users by ID');
-    res.status(200).json({ msg: 'ok'})
-
-})
-
-app.post('/users', async (req, res) => {
-    console.log('POST users');
-    const body = req.body;
-    const user = {
-        name: body.name,
-        email: body.email,
-        password: body.password
-    }
-    console.log(user)
-    // Creo una instancia de user
-    const myUser = new User(user);
-    console.log/(myUser)
-    await myUser.save();
-
-
-    res.status(200).json({ msg: 'ok'})
-
-})
-
-app.delete('/users', (req, res) => {
-    console.log('DELETE users by ID');
-    res.status(200).json({ msg: 'ok'})
-
-})
-
-
+// Llamamos a las rutas
+routerAPI(app);
 
 app.listen( port, () => { 
     console.log(`Servidor en el puerto ${port}`)
