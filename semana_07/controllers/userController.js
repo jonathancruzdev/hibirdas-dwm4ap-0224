@@ -3,21 +3,21 @@ const User = require('../models/usersModels');
 
 const creatUser = async ( req, res ) => {
     const { name, email, password } = req.body;
-    // Creo una instancia del modelo
-    const newUser = new User({ name, email, password })
-    await newUser.save();
-    res.status(200).json({ msg: 'Usuario Creado', data: newUser})
-    //const name = req.body.name;
-    //const email = req.body.email;
-    //const password = req.body.password;
 
-    /*
-    const newUser = new User({
-        name: name,
-        email: email,
-        passsword: password
-    });
-    */
+    if( !name || !email || !password){
+        res.status(400).json({ msg: 'Faltan paramatros obligatorios', data: { name, email, password }  })
+    }
+
+    try {
+        // Creo una instancia del modelo
+        const newUser = new User({ name, email, password })
+        await newUser.save();
+        res.status(200).json({ msg: 'Usuario Creado', data: newUser})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'UPs tenemos un error :(', data: {}})
+    }
+
 }
 
 const getUsers = async (req, res) => {
@@ -25,4 +25,25 @@ const getUsers = async (req, res) => {
     res.status(200).json({ msg: 'Ok', data: users });
 }
 
-module.exports = { creatUser, getUsers };
+
+const getUsersById = async ( req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+        if( user ){
+            res.status(200).json({ msg: "success", data: user});
+        } else {
+            res.status(404).json({ msg: "No se encontro el usuario ", data: { }});
+
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'UPs tenemos un error :(', data: {}})
+    }
+}
+
+const deleteUserById = async ( req, res) => {}
+const updateUserById = async ( req, res) => {}
+
+
+module.exports = { creatUser, getUsers, getUsersById, deleteUserById, updateUserById };
