@@ -42,8 +42,38 @@ const getUsersById = async ( req, res) => {
     }
 }
 
-const deleteUserById = async ( req, res) => {}
-const updateUserById = async ( req, res) => {}
+const deleteUserById = async ( req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findByIdAndDelete(id);
+        if( user ){
+            res.status(200).json({ msg: "success", data: user});
+        } else {
+            res.status(404).json({ msg: "No se encontro el usuario ", data: { }});
+
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'UPs tenemos un error :(', data: {}})
+    }
+}
+const updateUserById = async ( req, res) => {
+    const { id } = req.params;
+    const { name, email, password} = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(id, { name, email, password}, {new: true});
+        if( user ){
+            res.status(200).json({ msg: "success", data: user});
+        } else {
+            res.status(404).json({ msg: "No se encontro el usuario ", data: { }});
+
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: 'UPs tenemos un error :(', data: {}})
+    }
+}
 
 
 module.exports = { creatUser, getUsers, getUsersById, deleteUserById, updateUserById };
