@@ -1,12 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 const routerAPI = require('./routes');
 const db = require('./config/dataBase.js');
 require('dotenv').config();
+
 
 // accedemos a la variable de Entorno
 const port = process.env.PORT;
 
 const app = express();
+// Permitir acceso externos
+app.use( cors())
 // Ruta Raíz
 app.use( express.json());
 // Definimos la carpeta para servir archivos estaticos
