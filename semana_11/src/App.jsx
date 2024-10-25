@@ -1,59 +1,72 @@
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
 import Card from './Card';
-import User from './User';
 
-import { useState, useEffect } from 'react';
 
+import { useState } from 'react';
 
 
 
 function App() {
-  const [ users, setUsers ]   = useState([]);
 
-  useEffect(   () => {
-    const getUsers = async () => {
-      const endPoint = 'http://127.0.0.1:3000/api/users';
-      const resp =  await fetch(endPoint);
-      const users = await resp.json();
-      setUsers( users.data);
-      console.log(users);
-    }
-  
-    getUsers();
-  }, [])
-  
+  let [ logueado, setLoguedo ] =  useState(false); // Retornar [ valor, fn ]
+
+  let mensaje = logueado == true ? 'bienvenido' : 'inicia sesión';
   let nombre = "José";
-  let edad = 21;
-  const cursos = ['HTML', 'JS', 'React'];
+  const productos = [
+    {id: 1, nombre: 'Mate', precio: 500 },
+    {id: 2, nombre: 'Gelletias', precio: 100 },
+    {id: 3, nombre: 'Zapatilla', precio: 2500 }
+  ];
   let titulo = <h2> Esto es un título</h2>;
-  const userData = {
-    name: 'Juan',
-    email: 'juan@mail.com'
+  const login = () => {
+    console.log('Se inicio la fn login')
+    setLoguedo( true );
   }
+
+  const logout = () => {
+    setLoguedo(false);
+  }
+
+  console.log('Se renderizo el Componente');
   return (
     <div>
       <h1> Aplicaciones Híbridas</h1>
-      {
-        users.map( user => (
-          <User  
-            name={user.name}
-            email={ user.email }
-          />
-        ))
+
+      { titulo}
+      <h4>{ mensaje }</h4>
+
+      <hr />
+      <button onClick={ login }  type='button'> Login </button>
+      <button onClick={ logout }  type='button'> Logout </button>
+
+      { // Renderizado Condicional
+        logueado == true ? (
+          <div> 
+            <h4> Bienvenido <p className='verde'> Hola { nombre }</p></h4>
+              <div className="row">
+                { // Renderizado de listas
+                  productos.map( producto => ( 
+                    <Card 
+                      key={producto.id} 
+                      texto={producto.nombre} 
+                      precio={producto.precio}
+                    /> 
+                  ))
+                  
+                }
+              </div>
+          </div>
+        ) : ( 
+          <h4> Inicia Sesión <a href='#'>Login</a> </h4>
+        ) 
       }
 
 
-      <img src="" alt="" /> 
-      { titulo}
-      <Card texto="Termo" precio={40000} />
-      <Card texto="Mate" precio={5000} />
 
-      <p className='verde'> Hola { nombre }</p>
-      <p> {  edad + 2  }</p>
-      <p> {  cursos[2]  } </p>
+
+      
+
     </div>
   )
 }
