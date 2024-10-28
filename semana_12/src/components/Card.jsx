@@ -1,5 +1,6 @@
 import React from "react";
-import './App.css'
+import Button from "./Button";
+import '../App.css'
 
 
 function Card ( props){
@@ -9,6 +10,7 @@ function Card ( props){
             <h4> { props.texto} </h4>
             <hr />
             <p> $ { props.precio + 10}</p>
+            <Button text="Agregar" color="green"></Button>
         </div>
     )
 }

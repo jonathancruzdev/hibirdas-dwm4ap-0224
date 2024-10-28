@@ -1,7 +1,8 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
-import Card from './Card';
-
+import ProductsContainer from "./components/ProductsContainer";
+import Card from './components/Card';
+import Button from './components/Button';
 
 import { useState } from 'react';
 
@@ -35,7 +36,7 @@ function App() {
 
       { titulo}
       <h4>{ mensaje }</h4>
-
+      <Button color="red" text="Ejemplo" />
       <hr />
       <button onClick={ login }  type='button'> Login </button>
       <button onClick={ logout }  type='button'> Logout </button>
@@ -44,17 +45,23 @@ function App() {
         logueado == true ? (
           <div> 
             <h4> Bienvenido <p className='verde'> Hola { nombre }</p></h4>
-              <div className="row">
+              
+              <ProductsContainer>
                 { // Renderizado de listas
-                  productos.map( producto => ( 
-                    <Card 
-                      key={producto.id} 
-                      texto={producto.nombre} 
-                      precio={producto.precio}
-                    /> 
-                  ))
-                  
+                    productos.map( producto => ( 
+                      <Card 
+                        key={producto.id} 
+                        texto={producto.nombre} 
+                        precio={producto.precio}
+                      /> 
+                    ))
+                    
                 }
+
+              </ProductsContainer>
+              
+              <div className="row">
+                
               </div>
           </div>
         ) : ( 

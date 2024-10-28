@@ -57,3 +57,19 @@
   display: flex;
   gap: 10px;
 }
+
+.btn {
+  width: 200px;
+}
+
+.btn-red {
+  background-color: tomato;
+}
+
+.btn-green {
+  background-color: teal;
+}
+
+.bg-blue {
+  background-color: #224ec5;
+}
