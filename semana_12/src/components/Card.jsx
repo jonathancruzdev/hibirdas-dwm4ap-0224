@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import '../App.css'
+import { Link } from "react-router-dom";
 
 
 function Card ( props){
@@ -11,6 +12,7 @@ function Card ( props){
             <hr />
             <p> $ { props.precio + 10}</p>
             <Button text="Agregar" color="green"></Button>
+            <Link to={`/details/${props.id}`}> Detalle</Link>
         </div>
     )
 }

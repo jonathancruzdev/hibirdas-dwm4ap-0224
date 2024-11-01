@@ -1,73 +1,50 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
-import ProductsContainer from "./components/ProductsContainer";
-import Card from './components/Card';
-import Button from './components/Button';
 
-import { useState } from 'react';
+// Importo las vistas
+import Home from './views/Home';
+import Contact from './views/Contact';
+import Details from './views/Details';
+import Login from './views/Login';
+import NotFound from './views/NotFound';
+
+import { Routes, Route, NavLink, Link } from 'react-router-dom';
 
 
 
 function App() {
 
-  let [ logueado, setLoguedo ] =  useState(false); // Retornar [ valor, fn ]
 
-  let mensaje = logueado == true ? 'bienvenido' : 'inicia sesión';
-  let nombre = "José";
-  const productos = [
-    {id: 1, nombre: 'Mate', precio: 500 },
-    {id: 2, nombre: 'Gelletias', precio: 100 },
-    {id: 3, nombre: 'Zapatilla', precio: 2500 }
-  ];
-  let titulo = <h2> Esto es un título</h2>;
-  const login = () => {
-    console.log('Se inicio la fn login')
-    setLoguedo( true );
-  }
-
-  const logout = () => {
-    setLoguedo(false);
-  }
 
   console.log('Se renderizo el Componente');
   return (
     <div>
       <h1> Aplicaciones Híbridas</h1>
-
-      { titulo}
-      <h4>{ mensaje }</h4>
-      <Button color="red" text="Ejemplo" />
       <hr />
-      <button onClick={ login }  type='button'> Login </button>
-      <button onClick={ logout }  type='button'> Logout </button>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to='/'> Inicio</NavLink>
+          </li>
+          <li>
+            <NavLink to='/contact'> Contactos </NavLink>
+          </li>
+          <li>
+            <NavLink to='/login'> Login </NavLink>
+          </li>
+        </ul>
+      </nav>
+      { /* El área deonde se van a mostrar los componentes (Vistas)  */}
+      <Routes>
+        <Route path='/' element={ <Home /> } /> 
+        <Route path='/contact' element={ <Contact/>} />
+        <Route path='/details/:id' element={ <Details/>} />
+        <Route path='/login' element={ <Login />} />
+        <Route path='*' element={ <NotFound />} />
+      </Routes>
 
-      { // Renderizado Condicional
-        logueado == true ? (
-          <div> 
-            <h4> Bienvenido <p className='verde'> Hola { nombre }</p></h4>
-              
-              <ProductsContainer>
-                { // Renderizado de listas
-                    productos.map( producto => ( 
-                      <Card 
-                        key={producto.id} 
-                        texto={producto.nombre} 
-                        precio={producto.precio}
-                      /> 
-                    ))
-                    
-                }
 
-              </ProductsContainer>
-              
-              <div className="row">
-                
-              </div>
-          </div>
-        ) : ( 
-          <h4> Inicia Sesión <a href='#'>Login</a> </h4>
-        ) 
-      }
+
 
 
 
