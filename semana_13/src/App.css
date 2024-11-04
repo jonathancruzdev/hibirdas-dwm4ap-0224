@@ -49,13 +49,18 @@
   border: 2px solid snow;
   padding: 10px;
   width: 200px;
-  height: 300px;
+  min-height: 300px;
   box-shadow: 2px 2px 5px #888;
+}
+
+.card img {
+  width: 100%;
 }
 
 .row {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .btn {
