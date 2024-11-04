@@ -10,8 +10,16 @@ const Home = () => {
   let [ recargar, setRecargar] = useState(false);
   let [ logueado, setLoguedo] = useState(false); // Retornar [ valor, fn ]
   let [ productos, setProductos] = useState( [] );
+  const [ categorias, setCategorias ] = useState( []);
   useEffect(  () =>{
     console.log('Se Renerizo el componente.')
+    const getCategorias =  async () => {
+      const resp = await fetch('https://dummyjson.com/products/category-list');
+      const data = await resp.json();
+      console.log(data);
+      setCategorias( data);
+    }
+
 
     const getProducts = async () => {
       const resp = await fetch('https://dummyjson.com/products');
@@ -29,6 +37,7 @@ const Home = () => {
     }
   
     getProducts();
+    getCategorias();
   }, [ recargar] );
   
 
@@ -78,7 +87,15 @@ const Home = () => {
               {" "}
               Bienvenido <p className="verde"> Hola {nombre}</p>
             </h4>
-
+            <select >
+              <option value="">Seleccionar</option>
+              {
+                categorias.map( categoria => {
+                <option value={categoria}>{categoria}</option>
+                })
+              }
+              
+            </select>
             <ProductsContainer>
               {
                 // Renderizado de listas
