@@ -1,6 +1,7 @@
 const express = require('express');
 const routerAPI = require('./routes');
 const db = require('./config/dataBase.js');
+const cors = require('cors');
 require('dotenv').config();
 
 // accedemos a la variable de Entorno
@@ -9,6 +10,7 @@ const port = process.env.PORT;
 const app = express();
 // Ruta Raíz
 app.use( express.json());
+app.use( cors());
 // Definimos la carpeta para servir archivos estaticos
 app.use(  express.static('public') );
 
