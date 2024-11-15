@@ -1,12 +1,17 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import 'dotenv/config'
+// accedemos a la variable de Entorno
+const port = process.env.PORT;
+const uridb = process.env.URI_BD;
+console.log(uridb);
 import { routerAPI }  from "./routes/index.js";
 const app = express();
-const port = 3000;
+//const port = 3000;
 app.use( cors() );
 
-mongoose.connect( 'mongodb://127.0.0.1:27017/blog', {});
+mongoose.connect( uridb, {});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
@@ -24,6 +29,6 @@ app.get('/', (req, res) => {
 routerAPI(app);
 
 
-app.listen( 3000, () =>{
+app.listen( port, () =>{
     console.log('Servidor escuchando en el puerto ' + port);
 })
