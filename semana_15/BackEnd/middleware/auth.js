@@ -22,8 +22,10 @@ const validarToken = ( req, res, next  ) => {
         if( error) {
             return res.status(403).json({ msg: 'Token Invaido '})
         }
+
+        console.log({decoded})
         // Si se pudo decodificar el token, retorno
-        req.userId = decoded.userId;
+        req.body.userId = decoded.userId;
         next();
     })
 

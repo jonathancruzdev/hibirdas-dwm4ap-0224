@@ -2,7 +2,10 @@ const Task = require('../models/taskModels');
 const User = require('../models/usersModels');
 
 const createTask = async ( req, res ) => {
-    const { description, userId } = req.body;
+    // el userId lo esta pasando el middleware que obtiene el userId al decodificar el token
+    const { description, userId  } = req.body;
+
+    console.log(description, userId)
 
     if( !description || !userId ){
         res.status(400).json({ msg: 'Faltan paramatros obligatorios', data: { description, userId }  })
@@ -23,7 +26,11 @@ const createTask = async ( req, res ) => {
 
 
 const getTasks = async (req, res) => {
-    const tasks = await Task.find().populate('user')
+    const userId = req.body.userId;
+
+    //const tasks = await Task.find(  {user: userId} ).populate('user')
+
+    const tasks = await Task.find(  {user: userId} );
     res.status(200).json({ msg: 'Ok', data: tasks });
 }
 
