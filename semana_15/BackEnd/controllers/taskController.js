@@ -27,9 +27,7 @@ const createTask = async ( req, res ) => {
 
 const getTasks = async (req, res) => {
     const userId = req.body.userId;
-
     //const tasks = await Task.find(  {user: userId} ).populate('user')
-
     const tasks = await Task.find(  {user: userId} );
     res.status(200).json({ msg: 'Ok', data: tasks });
 }
