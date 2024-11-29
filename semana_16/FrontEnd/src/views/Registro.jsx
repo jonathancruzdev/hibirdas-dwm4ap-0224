@@ -1,10 +1,13 @@
 import { useState } from "react";
+// Para cambiar de rutas
 import { useNavigate } from "react-router-dom";
 
 const Registro = () =>{
     // Defino los estados
     const [ formData, setFormData  ] = useState({ name: '', email: '', password: ''});
+
     const navigate = useNavigate();
+
     const handleChange = ( event ) => {
         const { name, value } = event.target;
         //console.log(name, value);
@@ -39,6 +42,7 @@ const Registro = () =>{
                 password: ''
             })
 
+            // Cambiamos la ruta
             navigate('/login');
 
         } catch (error) {

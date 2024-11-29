@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../utils/AuthContext";
 
 const Login = () =>{
     const [ formData, setFormData  ] = useState({ email: '', password: ''});
+    // Usamos el contexto
+    const { login } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleChange = ( event ) => {
         const { name, value } = event.target;
@@ -26,10 +32,21 @@ const Login = () =>{
             if( ! response.ok){
                 console.error( response);
             }
-
             const data = await response.json();
-
             console.log(data);
+
+            if( data.data.jwt) {
+            // Cuando el back me dio ok
+                // Actualizamos el contextos con el dato del usuario 'ok' y el token
+                login( 'ok', data.data.jwt );
+                // Cambiamos la ruta a la home
+                navigate('/');
+            } else {
+                alert('Usuario o contraseña invalidos')
+            }
+  
+
+
             setFormData({
                 name: '',
                 email: '',

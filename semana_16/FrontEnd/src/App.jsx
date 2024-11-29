@@ -8,9 +8,11 @@ import Details from './views/Details';
 import Login from './views/Login';
 import Registro from './views/Registro';
 import NotFound from './views/NotFound';
-
+import Perfil from './views/Peril';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
+import { PrivateRoute } from './utils/PrivateRoute';
 
+import { AuthProvider } from './utils/AuthContext';
 
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
             <NavLink to='/'> Inicio</NavLink>
           </li>
           <li>
+            <NavLink to='/perfil'> Perfil</NavLink>
+          </li>
+          <li>
             <NavLink to='/contact'> Contactos </NavLink>
           </li>
           <li>
@@ -36,14 +41,23 @@ function App() {
         </ul>
       </nav>
       { /* El área deonde se van a mostrar los componentes (Vistas)  */}
-      <Routes>
-        <Route path='/' element={ <Home /> } /> 
-        <Route path='/contact' element={ <Contact/>} />
-        <Route path='/details/:id' element={ <Details/>} />
-        <Route path='/registro' element={ <Registro />} />
-        <Route path='/login' element={ <Login />} />
-        <Route path='*' element={ <NotFound />} />
-      </Routes>
+      
+      <AuthProvider>
+        <Routes>
+          <Route path='/' element={ <Home /> } /> 
+          <Route  path='/perfil' 
+                  element={  <PrivateRoute>
+                                <Perfil /> 
+                              </PrivateRoute> } 
+          />
+          <Route path='/contact' element={ <Contact/>} />
+          <Route path='/details/:id' element={ <Details/>} />
+          <Route path='/registro' element={ <Registro />} />
+          <Route path='/login' element={ <Login />} />
+          <Route path='*' element={ <NotFound />} />
+        </Routes>
+      </AuthProvider>
+      
 
 
     </div>
